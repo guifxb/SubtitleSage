@@ -3,7 +3,6 @@ package com.example.translatorsportfolio.data
 import com.example.translatorsportfolio.model.MovieInfoLocal
 import kotlinx.coroutines.flow.Flow
 
-//Singleton to instance the local repository
 class MovieRepositoryOffline(private val movieDao: MovieDao) : MovieRepositoryLocal {
 
     override fun getAllItemsStream(): Flow<List<MovieInfoLocal>> = movieDao.getAllItems()

@@ -16,27 +16,23 @@ class PdfController {
 
     fun generatePDF(context: Context, uiState: AppUiState) {
 
-        //Receiving local database from ui.State
         val movies = when (uiState) {
             is AppUiState.Loading -> emptyList()
             is AppUiState.Success -> uiState.movies
             else -> emptyList()
         }
-        //Checking for Empty
+
         if (movies.isEmpty()) {
             Toast.makeText(context, context.getString(R.string.empty_list_toast), Toast.LENGTH_SHORT).show()
             return
         }
 
-        //Creating the document
         val document = pdfModel(context, movies)
 
-        //Path and name to save
         val path = context.getExternalFilesDir(null)
         val filename = "portfolio_${System.currentTimeMillis()}.pdf"
         val file = File(path, filename)
 
-        //Saving locally
         try {
             document.writeTo(FileOutputStream(file))
             Toast.makeText(context, context.getString(R.string.pdf_created_toast), Toast.LENGTH_LONG)
@@ -46,7 +42,6 @@ class PdfController {
             e.printStackTrace()
         }
 
-        //Getting URI
         val documentURI = FileProvider.getUriForFile(
             context, "${context.packageName}.fileprovider", file
         )
@@ -67,5 +62,3 @@ class PdfController {
         document.close()
     }
 }
-
-

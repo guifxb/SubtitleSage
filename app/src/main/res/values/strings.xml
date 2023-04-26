@@ -2,11 +2,11 @@
     <string name="app_name">Translator\'s Portfolio</string>
     <string name="home_screen_about_me">Guilherme Félix Bastos</string>
     <string name="portfolio_button">Translation Portfolio</string>
-    <string name="about_app_button">About this App</string>
-    <string name="home_title">Hello, World!</string>
+    <string name="experience_button">Personal Info</string>
+    <string name="home_title">Main Page</string>
     <string name="grid_page">Translated Titles</string>
     <string name="details_page">Title Details</string>
-    <string name="about_app">About This App</string>
+    <string name="about_app">Personal Information</string>
     <string name="back_button">Back</string>
     <string name="about_me_info">Hi! I am a translator with ten years of experience specializing in subtitle creation. Having worked with all parts of the process, from timing to translation, I have deep knowledge of the whole system. But my biggest passion has always been the tech field, so I am reinventing myself as a Mobile Developer. I have built this app as a double portfolio to display some titles I have translated .also { this }. 😉</string>
     <string name="title_translator">Freelance Translator</string>
@@ -40,7 +40,7 @@
     <string name="just_no">No</string>
     <string name="title_save_toast">Title Saved</string>
     <string name="title_not_found_toast">Title Not Found</string>
-    <string name="exemple_placeholder">Example: tt17527124</string>
+    <string name="example_placeholder">Example: tt17527124</string>
     <string name="search_button">Search</string>
     <string name="save_button">Save</string>
     <string name="delete_title_alert_title">Delete</string>

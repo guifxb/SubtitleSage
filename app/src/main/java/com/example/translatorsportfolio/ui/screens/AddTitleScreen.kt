@@ -123,9 +123,9 @@ fun SaveButtons(
             value = textField,
             onValueChange = { textField = it },
             label = { Text("IMDB id") },
-            placeholder = { Text(text = stringResource(R.string.exemple_placeholder), modifier = Modifier.alpha(0.35f)) },
+            placeholder = { Text(text = stringResource(R.string.example_placeholder), modifier = Modifier.alpha(0.35f)) },
             singleLine = true,
-            trailingIcon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
+            leadingIcon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         )
@@ -185,6 +185,3 @@ fun SaveButtons(
         )
     }
 }
-
-
-

@@ -33,7 +33,6 @@ import com.example.translatorsportfolio.R.drawable
 import com.example.translatorsportfolio.model.MovieInfoLocal
 import com.example.translatorsportfolio.ui.managers.AppUiState
 
-
 @Composable
 fun GridScreen(
     uiState: AppUiState,
@@ -119,7 +118,7 @@ fun PosterGrid(
 ) {
     val showCheckbox = remember { mutableStateOf(false) }
     val checkedStates = remember { List(movies.size) { false }.toMutableStateList() }
-    val moviesToDelete = movies.filterIndexed { index, movie -> checkedStates.getOrNull(index) == true }.toMutableList()
+    val moviesToDelete = movies.filterIndexed { index, _ -> checkedStates.getOrNull(index) == true }.toMutableList()
     var openDialogDelete by remember { mutableStateOf(false) }
     val deletedToast = Toast.makeText(LocalContext.current, stringResource(R.string.deleted_toast), Toast.LENGTH_LONG)
     val baseCheckedState = List(movies.size) { false }

@@ -1,6 +1,5 @@
 package com.example.translatorsportfolio.ui.screens
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +22,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.translatorsportfolio.R
 import com.example.translatorsportfolio.model.MovieInfoLocal
-
 
 @Composable
 fun DetailScreen(
@@ -115,4 +113,3 @@ fun AnnotatedString.Builder.appendLink(linkText: String, linkUrl: String) {
     append(linkText)
     pop()
 }
-

@@ -5,7 +5,6 @@ import com.example.translatorsportfolio.data.AppContainer
 import com.example.translatorsportfolio.data.DefaultAppContainer
 import com.google.android.material.color.DynamicColors
 
-
 class AppApplication: Application() {
     lateinit var container: AppContainer
     override fun onCreate() {

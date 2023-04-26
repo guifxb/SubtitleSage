@@ -5,7 +5,6 @@ import com.example.translatorsportfolio.model.MovieInfoLocal
 import kotlinx.coroutines.flow.Flow
 
 
-//DAO for managing the local Database
 @Dao
 interface MovieDao {
 

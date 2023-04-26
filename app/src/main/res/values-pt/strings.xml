@@ -3,11 +3,11 @@
     <string name="app_name">Translator\'s Portfolio</string>
     <string name="home_screen_about_me">Guilherme Félix Bastos</string>
     <string name="portfolio_button">Títulos Traduzidos</string>
-    <string name="about_app_button">Sobre o app</string>
-    <string name="home_title">Olá, mundo!</string>
+    <string name="experience_button">Informações pessoais</string>
+    <string name="home_title">Página principal</string>
     <string name="grid_page">Títulos Traduzidos</string>
     <string name="details_page">Detalhes</string>
-    <string name="about_app">Sobre o app</string>
+    <string name="about_app">Informações pessoais</string>
     <string name="back_button">Voltar</string>
     <string name="about_me_info">"Oi! Sou tradutor com 10 anos de experiência especializado na criação de legendas. Já trabalhei com todas as etapas do processo, de marcação de tempo à tradução. Tenho domínio na área, mas meu interesse sempre foi tecnologia, por isso, hoje me reinvento como Desenvolvedor Mobile. Desenvolvi este aplicativo para tê-lo como portfólio duplo, divulgando alguns título que traduzi e { this }. 😉 "</string>
     <string name="title_translator">Tradutor Freelancer</string>
@@ -41,7 +41,7 @@
     <string name="just_no">Não</string>
     <string name="title_save_toast">Título salvo com sucesso</string>
     <string name="title_not_found_toast">Não encontrado</string>
-    <string name="exemple_placeholder">Exemplo: tt17527124</string>
+    <string name="example_placeholder">Exemplo: tt17527124</string>
     <string name="search_button">Buscar</string>
     <string name="save_button">Salvar</string>
     <string name="delete_title_alert_title">Apagar</string>

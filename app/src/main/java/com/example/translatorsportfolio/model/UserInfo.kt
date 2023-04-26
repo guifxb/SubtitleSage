@@ -1,21 +1,31 @@
 package com.example.translatorsportfolio.model
 
-import android.content.Context
-import com.example.translatorsportfolio.R
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "user" )
+data class UserInfo(
+    @PrimaryKey
+    val id: Int = 1,
+    var name: String = "",
+    var title: String = "",
+    var aboutMe: String = "",
+    var whatsApp: String = "",
+    var linkedIn: String = "",
+    var email: String = "",
+)
+
+@Entity(tableName = "user_experience")
+data class Experience(
+    @PrimaryKey
+    var company: String,
+    var pair: String,
+    var time: String,
+    var role: String
+)
+
+val defaultExp = Experience("", "", "", "")
+val defaultUser = UserInfo(1, "TESTE", "TITULO", "sobre sobretudos todos", "999999999999", "/in/iron_man", "a@a.com")
 
 
-class UserInfo(
-    var name: Int,
-    var title: Int,
-    var aboutMe: Int,
-    var whatsApp: Int,
-    var linkedIn: Int,
-    var email: Int
-) {
 
-    fun toString(context: Context, int: Int): String{
-        return context.getString(int)
-    }
-}
-
-val defaultUser = UserInfo(R.string.home_screen_about_me, R.string.title_dev, R.string.about_me_info, R.string.contactWhasApp, R.string.contactLinkedin, R.string.contactEmail)

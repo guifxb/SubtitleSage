@@ -2,7 +2,6 @@ package com.example.translatorsportfolio.model
 
 import androidx.room.Entity
 
-//Entity for local database
 @Entity(tableName = "movies", primaryKeys = ["title", "year"] )
 data class MovieInfoLocal(
     val title: String,

@@ -1,6 +1,5 @@
 package com.example.translatorsportfolio.pdfmanager
 
-
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
@@ -11,10 +10,9 @@ import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.example.translatorsportfolio.R
 import com.example.translatorsportfolio.model.MovieInfoLocal
+import com.example.translatorsportfolio.model.defaultExp
 import com.example.translatorsportfolio.model.defaultUser
 import kotlinx.coroutines.*
-
-
 
 @OptIn(ExperimentalCoilApi::class)
 fun pdfModel(context: Context, movies: List<MovieInfoLocal>): PdfDocument {
@@ -44,22 +42,13 @@ fun pdfModel(context: Context, movies: List<MovieInfoLocal>): PdfDocument {
 
 
     //Getting info
-    val title = defaultUser.toString(context, defaultUser.title)
-    val name = defaultUser.toString(context, defaultUser.name)
-    val whatsapp = defaultUser.toString(context, defaultUser.whatsApp)
-    val email = defaultUser.toString(context, defaultUser.email)
-    val linkedIn = defaultUser.toString(context, defaultUser.linkedIn)
-    val aboutMe = defaultUser.toString(context, defaultUser.aboutMe)
-    val skills = mutableListOf(
-        "Kotlin",
-        "JetPack Compose",
-        "Android",
-        "Android SKD",
-        "Gradle",
-        "Retrofit",
-        "Arquitetura do Android",
-        "Inglês nível C2"
-    )
+    val title = defaultUser.title
+    val name = defaultUser.name
+    val whatsapp = defaultUser.whatsApp
+    val email = defaultUser.email
+    val linkedIn = defaultUser.linkedIn
+    val aboutMe = defaultUser.aboutMe
+    val skills = defaultExp
 
     //Painting left side info
     paint.textSize = 16f
@@ -100,10 +89,10 @@ fun pdfModel(context: Context, movies: List<MovieInfoLocal>): PdfDocument {
     //Skills
     y += 50f
     paint.textSize = 9f
-    for (skill in skills) {
-        canvas.drawText("• $skill", leftMargin, y, paint)
-        y += 16
-    }
+//    for (skill in skills) {
+//        canvas.drawText("• $skill", leftMargin, y, paint)
+//        y += 16
+//    }
 
     //Portfolio container
     //Setting start position and poster size

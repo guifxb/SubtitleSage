@@ -3,7 +3,7 @@ package com.example.translatorsportfolio.data
 import com.example.translatorsportfolio.model.MovieInfoNet
 import com.example.translatorsportfolio.network.AppApiService
 
-//Singleton to instance the online repository
+
 class NetworkMovieRepository(
     private val appApiService: AppApiService,
 ) : MovieRepository {

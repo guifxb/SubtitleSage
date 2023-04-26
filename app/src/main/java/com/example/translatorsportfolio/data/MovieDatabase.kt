@@ -7,9 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.translatorsportfolio.model.MovieInfoLocal
 
 
-
-//Database class with a singleton INSTANCE object.
-@Database(entities = [MovieInfoLocal::class], version = 3, exportSchema = false)
+@Database(entities = [MovieInfoLocal::class], version = 4, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao

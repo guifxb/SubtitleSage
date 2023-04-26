@@ -43,19 +43,17 @@ class OnlineViewModel(
     private val _currentMovie = MutableStateFlow(DefaultMovie)
     val currentMovie: StateFlow<MovieInfoLocal> = _currentMovie.asStateFlow()
 
-
     //Add Title val used to build AddTitle screen from search and add it to database
     private val _addTitleCurrentMovie = MutableStateFlow(DefaultTitleToAdd)
     val addTitleCurrentMovie: StateFlow<MovieInfoNet> = _addTitleCurrentMovie.asStateFlow()
 
-    //This is used in details page
+
     fun updateCurrentMovie(movieInfoLocal: MovieInfoLocal) {
         _currentMovie.update {
             movieInfoLocal
         }
     }
 
-    //Getting titles from online API
     fun getTitleToAdd(idToAdd: String) {
         viewModelScope.launch {
             val titleToAdd = try {
@@ -68,14 +66,12 @@ class OnlineViewModel(
             catch (e: Exception) {
                 DefaultTitleToAdd
             }
-
             _addTitleCurrentMovie.update {
                 titleToAdd
             }
         }
     }
 
-    //Saving titles locally
     fun addTitle() {
         viewModelScope.launch {
             movieRepositoryLocal.insertItem(_addTitleCurrentMovie.value.toMovieInfoLocal())
@@ -110,8 +106,8 @@ class OnlineViewModel(
 
             for (movie in listToSave) {
                 movieRepositoryLocal.insertItem(movie.toMovieInfoLocal())
-
             }
+
             val movies by mutableStateOf(movieRepositoryLocal.getAllItemsStream().first())
             uiState = AppUiState.Success(movies)
         }
@@ -129,4 +125,3 @@ class OnlineViewModel(
         }
     }
 }
-

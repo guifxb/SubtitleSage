@@ -29,7 +29,7 @@ enum class AppScreen(@StringRes val title: Int) {
     Start(title = R.string.home_title),
     Grid(title = R.string.grid_page),
     Details(title = R.string.details_page),
-    AboutApp(title = R.string.about_app),
+    PersonalInfo(title = R.string.about_app),
     AddTitleScreen(title = R.string.add_new_title)
 }
 
@@ -80,8 +80,9 @@ fun PortfolioApp(
     val currentScreen =
         AppScreen.valueOf(backStackEntry?.destination?.route ?: AppScreen.Start.name)
 
-    // ViewModel Constructor
     val onlineViewModel: OnlineViewModel = viewModel(factory = OnlineViewModel.Factory)
+
+    val userViewModel: UserViewModel = viewModel(factory = UserViewModel.Factory)
 
     Scaffold(modifier = modifier.fillMaxSize(), topBar = {
         AppBar(
@@ -98,11 +99,14 @@ fun PortfolioApp(
         ) {
             NavHost(navController = navController, startDestination = AppScreen.Start.name) {
                 composable(route = AppScreen.Start.name) {
+                    val state = userViewModel.mainUser.collectAsState()
                     HomeScreen(onAboutButtonClicked = {
-                        navController.navigate(AppScreen.AboutApp.name)
+                        navController.navigate(AppScreen.PersonalInfo.name)
                     }, onPortfolioButtonClicked = {
                         navController.navigate(AppScreen.Grid.name)
-                    })
+                    },
+                        mainUser = state.value
+                    )
                 }
 
                 composable(route = AppScreen.Grid.name) {
@@ -125,8 +129,16 @@ fun PortfolioApp(
                     DetailScreen(movieInfoLocal = state.value)
                 }
 
-                composable(route = AppScreen.AboutApp.name) {
-                    AboutAppScreen()
+                composable(route = AppScreen.PersonalInfo.name) {
+                    val userState = userViewModel.mainUser.collectAsState()
+                    val expState = userViewModel.mainExp.collectAsState()
+                    PersonalInfoScreen(
+                        mainUser = userState.value,
+                        experiences = expState.value,
+                        onSaveButtonClicked = { userViewModel.saveMainUser(it) },
+                        onAddExperience = { userViewModel.addExp(it) },
+                        onDeleteExperience = { userViewModel.deleteExp(it) }
+                    )
                 }
 
                 composable(route = AppScreen.AddTitleScreen.name) {
