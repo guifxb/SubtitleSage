@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.translatorsportfolio.model.Experience
 import com.example.translatorsportfolio.model.UserInfo
 
-@Database(entities = [UserInfo::class, Experience::class], version = 5, exportSchema = false)
+@Database(entities = [UserInfo::class, Experience::class], version = 7, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

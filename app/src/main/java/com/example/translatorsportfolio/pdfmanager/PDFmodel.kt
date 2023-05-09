@@ -9,13 +9,18 @@ import androidx.core.content.ContextCompat
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import com.example.translatorsportfolio.R
+import com.example.translatorsportfolio.model.Experience
 import com.example.translatorsportfolio.model.MovieInfoLocal
-import com.example.translatorsportfolio.model.defaultExp
-import com.example.translatorsportfolio.model.defaultUser
+import com.example.translatorsportfolio.model.UserInfo
 import kotlinx.coroutines.*
 
 @OptIn(ExperimentalCoilApi::class)
-fun pdfModel(context: Context, movies: List<MovieInfoLocal>): PdfDocument {
+fun pdfModel(
+    context: Context,
+    movies: List<MovieInfoLocal>,
+    mainUser: UserInfo,
+    experiences: List<Experience>
+): PdfDocument {
 
     //Start the document and setup page info
     val document = PdfDocument()
@@ -42,13 +47,15 @@ fun pdfModel(context: Context, movies: List<MovieInfoLocal>): PdfDocument {
 
 
     //Getting info
-    val title = defaultUser.title
-    val name = defaultUser.name
-    val whatsapp = defaultUser.whatsApp
-    val email = defaultUser.email
-    val linkedIn = defaultUser.linkedIn
-    val aboutMe = defaultUser.aboutMe
-    val skills = defaultExp
+
+
+
+    val title = mainUser.title
+    val name = mainUser.name
+    val whatsapp = mainUser.whatsApp
+    val email = mainUser.email
+    val linkedIn = mainUser.linkedIn
+    val aboutMe = mainUser.aboutMe
 
     //Painting left side info
     paint.textSize = 16f
@@ -86,13 +93,22 @@ fun pdfModel(context: Context, movies: List<MovieInfoLocal>): PdfDocument {
     y += 20f
     canvas.drawText(linkedIn, leftMargin, y, paint)
 
-    //Skills
+    //Experiences
     y += 50f
-    paint.textSize = 9f
-//    for (skill in skills) {
-//        canvas.drawText("• $skill", leftMargin, y, paint)
-//        y += 16
-//    }
+    for (experience in experiences) {
+            paint.textSize = 14f
+            canvas.drawText(experience.company, leftMargin, y, paint)
+            y += 16f
+            paint.textSize = 10f
+        if (experience.role != "") {
+            canvas.drawText("${experience.role} - ${experience.pair}", leftMargin, y, paint)
+            y += 12f
+        }
+        if (experience.time != "") {
+            canvas.drawText("(${experience.time})", leftMargin, y, paint)
+            y += 24f
+        }
+    }
 
     //Portfolio container
     //Setting start position and poster size

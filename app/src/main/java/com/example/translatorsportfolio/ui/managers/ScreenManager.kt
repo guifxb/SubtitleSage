@@ -21,15 +21,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.translatorsportfolio.R
+import com.example.translatorsportfolio.model.Experience
+import com.example.translatorsportfolio.model.UserInfo
 import com.example.translatorsportfolio.pdfmanager.PdfController
 import com.example.translatorsportfolio.ui.screens.*
 
 
 enum class AppScreen(@StringRes val title: Int) {
-    Start(title = R.string.home_title),
-    Grid(title = R.string.grid_page),
-    Details(title = R.string.details_page),
-    PersonalInfo(title = R.string.about_app),
+    Start(title = R.string.home_title), Grid(title = R.string.grid_page), Details(title = R.string.details_page), PersonalInfo(
+        title = R.string.about_app
+    ),
     AddTitleScreen(title = R.string.add_new_title)
 }
 
@@ -42,7 +43,9 @@ fun AppBar(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
     uiState: AppUiState,
-    ) {
+    mainUser: UserInfo,
+    experiences: List<Experience>,
+) {
     val context = LocalContext.current
     CenterAlignedTopAppBar(title = { Text(stringResource(currentScreen.title)) },
         modifier = modifier,
@@ -59,7 +62,7 @@ fun AppBar(
         actions = {
             // RowScope here, so these icons will be placed horizontally
             if (currentScreen.name == AppScreen.Grid.name) {
-                IconButton(onClick = { PdfController().generatePDF(context, uiState) }) {
+                IconButton(onClick = { PdfController().generatePDF(context, uiState, mainUser, experiences) }) {
                     Icon(Icons.Filled.Share, contentDescription = "Share")
                 }
             }
@@ -85,11 +88,15 @@ fun PortfolioApp(
     val userViewModel: UserViewModel = viewModel(factory = UserViewModel.Factory)
 
     Scaffold(modifier = modifier.fillMaxSize(), topBar = {
+        val userState = userViewModel.mainUser.collectAsState()
+        val expState = userViewModel.mainExp.collectAsState()
         AppBar(
             currentScreen = currentScreen,
             canNavigateBack = navController.previousBackStackEntry != null,
             navigateUp = { navController.navigateUp() },
-            uiState = onlineViewModel.uiState
+            uiState = onlineViewModel.uiState,
+            mainUser = userState.value,
+            experiences = expState.value
         )
     }) {
         Surface(
@@ -104,8 +111,7 @@ fun PortfolioApp(
                         navController.navigate(AppScreen.PersonalInfo.name)
                     }, onPortfolioButtonClicked = {
                         navController.navigate(AppScreen.Grid.name)
-                    },
-                        mainUser = state.value
+                    }, mainUser = state.value
                     )
                 }
 
@@ -132,13 +138,11 @@ fun PortfolioApp(
                 composable(route = AppScreen.PersonalInfo.name) {
                     val userState = userViewModel.mainUser.collectAsState()
                     val expState = userViewModel.mainExp.collectAsState()
-                    PersonalInfoScreen(
-                        mainUser = userState.value,
+                    PersonalInfoScreen(mainUser = userState.value,
                         experiences = expState.value,
                         onSaveButtonClicked = { userViewModel.saveMainUser(it) },
                         onAddExperience = { userViewModel.addExp(it) },
-                        onDeleteExperience = { userViewModel.deleteExp(it) }
-                    )
+                        onDeleteExperience = { userViewModel.deleteExp(it) })
                 }
 
                 composable(route = AppScreen.AddTitleScreen.name) {

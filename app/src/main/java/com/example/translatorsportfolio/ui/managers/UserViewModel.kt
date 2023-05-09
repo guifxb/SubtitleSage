@@ -55,7 +55,7 @@ class UserViewModel(
 
     private fun getExp() {
         viewModelScope.launch {
-                val experiences = expRepository.getAllItemsStream().first()
+                val experiences by mutableStateOf(expRepository.getAllItemsStream().first())
                 if (experiences.isEmpty()) {
                     expRepository.insertItem(defaultExp)
                 } else {
@@ -63,7 +63,6 @@ class UserViewModel(
                         experiences
                     }
                 }
-
         }
     }
 
