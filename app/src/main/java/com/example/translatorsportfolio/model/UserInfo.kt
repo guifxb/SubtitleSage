@@ -25,7 +25,7 @@ data class Experience(
 )
 
 val defaultExp = Experience("", "", "", "")
-val defaultUser = UserInfo(1, "TESTE", "TITULO", "sobre sobretudos todos", "999999999999", "/in/iron_man", "a@a.com")
+val defaultUser = UserInfo(1, "Full name", "professional title", "short summary", "0", "linkedin.com", "example@example.com")
 
 
 

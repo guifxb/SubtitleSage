@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.DeleteForever
@@ -39,14 +40,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.translatorsportfolio.model.Experience
 import com.example.translatorsportfolio.model.UserInfo
-import com.example.translatorsportfolio.model.defaultExp
-import com.example.translatorsportfolio.model.defaultUser
 import com.example.translatorsportfolio.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun PersonalInfoScreen(
     modifier: Modifier = Modifier,
@@ -67,172 +65,46 @@ fun PersonalInfoScreen(
                 verticalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.animateContentSize(
                     animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessLow
+                        dampingRatio = Spring.DampingRatioLowBouncy,
+                        stiffness = Spring.StiffnessHigh
                     )
                 )
             ) {
                 Row(
                     modifier
                         .fillMaxWidth()
-                        .padding(AppTheme.dimens.medium)
-
+                        .padding(AppTheme.dimens.medium),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Icon(imageVector = Icons.Filled.Person, contentDescription = null)
                     Text(
-                        modifier = modifier.align(Alignment.CenterVertically),
-                        text = "Personal Info",
+                        text = "Personal Information",
                         style = MaterialTheme.typography.bodyMedium
                     )
-                    Spacer(modifier = Modifier.weight(1f))
-                    IconButton(onClick = { expanded = !expanded }) {
-                        Icon(
-                            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                            contentDescription = ""
-                        )
-                    }
-                }
-            }
-        }
-        if (expanded) {
-            val focusManager = LocalFocusManager.current
-            var tempUser: UserInfo by remember { mutableStateOf(mainUser) }
-
-            Column(
-                verticalArrangement = Arrangement.Top,
-            ) {
-                val savedToast = Toast.makeText(LocalContext.current, "Saved", Toast.LENGTH_LONG)
-                OutlinedTextField(
-                    value = tempUser.name,
-                    onValueChange = { value ->
-                        tempUser = tempUser.copy(name = value)
-                        tempUser.name = value
-                    },
-                    label = { Text("Full Name") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(AppTheme.dimens.medium)
-                )
-
-                OutlinedTextField(
-                    value = tempUser.title,
-                    onValueChange = { value ->
-                        tempUser = tempUser.copy(title = value)
-                        tempUser.title = value
-                    },
-                    label = { Text("Title") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(AppTheme.dimens.medium)
-                )
-
-                OutlinedTextField(value = tempUser.aboutMe,
-                    onValueChange = { value ->
-                        tempUser = tempUser.copy(aboutMe = value)
-                        tempUser.aboutMe = value
-                    },
-                    label = { Text("About Me") },
-                    maxLines = 3,
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(AppTheme.dimens.medium),
-                    placeholder = {
-                        Text(
-                            text = "Add a brief summary about yourself.",
-                            modifier = Modifier.alpha(0.35f)
-                        )
-                    })
-
-                Row(
-                    modifier = modifier.fillMaxWidth()
-                ) {
-                    OutlinedTextField(
-                        value = tempUser.whatsApp,
-                        onValueChange = { value ->
-                            tempUser = tempUser.copy(whatsApp = value)
-                            tempUser.whatsApp = value
-                        },
-                        label = { Text("Phone") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                        modifier = Modifier
-                            .padding(AppTheme.dimens.medium)
-                            .fillMaxWidth(0.45f),
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Filled.Phone, contentDescription = null
-                            )
+                    ContactIconButton(
+                        expanded = expanded,
+                        onClick = {
+                            expanded = !expanded
                         },
                     )
-                    OutlinedTextField(value = tempUser.email,
-                        onValueChange = { value ->
-                            tempUser = tempUser.copy(email = value)
-                            tempUser.email = value
-                        },
-                        label = { Text("Email") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Email, imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                        modifier = Modifier
-                            .padding(AppTheme.dimens.medium)
-                            .fillMaxWidth(),
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Filled.Email, contentDescription = null
-                            )
-                        })
                 }
-                OutlinedTextField(value = tempUser.linkedIn,
-                    onValueChange = { value ->
-                        tempUser = tempUser.copy(linkedIn = value)
-                        tempUser.linkedIn = value
-                    },
-                    label = { Text("Professional Profile") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(AppTheme.dimens.medium),
-                    placeholder = {
-                        Text(
-                            text = "LinkedIn / ProZ.", modifier = Modifier.alpha(0.35f)
-                        )
-                    })
-                Row(horizontalArrangement = Arrangement.Center) {
-                    Button(modifier = Modifier
-                        .padding(AppTheme.dimens.medium)
-                        .fillMaxWidth(),
-                        onClick = {
-                            onSaveButtonClicked(tempUser)
-                            savedToast.show()
-                        }) {
-                        Text(
-                            text = "Save", style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
+                if (expanded) {
+                    UserTab(modifier = Modifier,
+                        mainUser = mainUser,
+                        onSaveButtonClicked = { onSaveButtonClicked(mainUser) })
                 }
             }
         }
+        Divider(modifier.padding(AppTheme.dimens.medium),
+            thickness = AppTheme.dimens.smallMedium)
 
-        Divider(modifier = Modifier.padding(AppTheme.dimens.large))
-
-        LazyColumn(modifier = modifier) {
-            items(experiences) { experience ->
+        LazyColumn(
+            modifier = modifier
+        ) {
+            items(experiences, key = { it.company }) { experience ->
                 ExperienceBlock(experience,
-                    experiences.last() == experience,
+                    mustHaveNext = experiences.last() == experience,
                     onAdd = { onAddExperience(experience) },
                     onDelete = { onDeleteExperience(experience) })
             }
@@ -247,14 +119,15 @@ fun ExperienceBlock(
     experience: Experience,
     mustHaveNext: Boolean,
     onAdd: (Experience) -> Unit,
-    onDelete: () -> Unit,
+    onDelete: (Experience) -> Unit,
 ) {
-
+    val savedToast = Toast.makeText(LocalContext.current, "Saved", Toast.LENGTH_LONG)
+    val deletedToast = Toast.makeText(LocalContext.current, "Deleted", Toast.LENGTH_LONG)
     val focusManager = LocalFocusManager.current
     var localExperience by remember { mutableStateOf(experience) }
 
     Column() {
-        OutlinedTextField(
+        OutlinedTextField(enabled = mustHaveNext,
             value = localExperience.company,
             onValueChange = { value ->
                 localExperience = localExperience.copy(company = value)
@@ -270,7 +143,7 @@ fun ExperienceBlock(
         )
 
         Row {
-            OutlinedTextField(
+            OutlinedTextField(enabled = mustHaveNext,
                 value = localExperience.pair,
                 onValueChange = { value ->
                     localExperience = localExperience.copy(pair = value)
@@ -285,7 +158,8 @@ fun ExperienceBlock(
                     .padding(AppTheme.dimens.medium)
             )
 
-            OutlinedTextField(value = localExperience.role,
+            OutlinedTextField(enabled = mustHaveNext,
+                value = localExperience.role,
                 onValueChange = { value ->
                     localExperience = localExperience.copy(role = value)
                     experience.role = value
@@ -304,7 +178,8 @@ fun ExperienceBlock(
                 })
         }
 
-        OutlinedTextField(value = localExperience.time,
+        OutlinedTextField(enabled = mustHaveNext,
+            value = localExperience.time,
             onValueChange = { value ->
                 localExperience = localExperience.copy(time = value)
                 experience.time = value
@@ -330,30 +205,176 @@ fun ExperienceBlock(
                 .fillMaxWidth()
                 .padding(AppTheme.dimens.medium)
         ) {
-            FloatingActionButton(onClick = { onDelete() }, content = {
-                Icon(imageVector = Icons.Outlined.DeleteForever, contentDescription = null)
-            })
-
-            Spacer(modifier = Modifier.fillMaxWidth(0.8f))
 
             if (mustHaveNext) {
-                FloatingActionButton(onClick = { onAdd(localExperience) }, content = {
+                Spacer(modifier = Modifier.fillMaxWidth(0.8f))
+                FloatingActionButton(onClick = {
+                    onAdd(localExperience)
+                    savedToast.show()
+                }, content = {
                     Icon(imageVector = Icons.Outlined.Add, contentDescription = null)
                 })
+            } else {
+                FloatingActionButton(onClick = {
+                    onDelete(localExperience)
+                    deletedToast.show()
+                }, content = {
+                    Icon(imageVector = Icons.Outlined.DeleteForever, contentDescription = null)
+                })
+
             }
         }
         Divider(modifier = Modifier.padding(AppTheme.dimens.large))
     }
 }
 
-@Preview(showSystemUi = true)
 @Composable
-fun AboutAppPreview() {
-    PersonalInfoScreen(
-        onSaveButtonClicked = { },
-        onAddExperience = { },
-        onDeleteExperience = { },
-        mainUser = defaultUser,
-        experiences = listOf(defaultExp) as MutableList<Experience>
-    )
+private fun ContactIconButton(
+    expanded: Boolean,
+    onClick: () -> Unit,
+) {
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+            contentDescription = null
+        )
+    }
 }
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UserTab(
+    modifier: Modifier,
+    mainUser: UserInfo,
+    onSaveButtonClicked: (UserInfo) -> Unit,
+) {
+    val focusManager = LocalFocusManager.current
+    var tempUser: UserInfo by remember { mutableStateOf(mainUser) }
+
+    Column(
+        verticalArrangement = Arrangement.Top,
+    ) {
+        val savedToast = Toast.makeText(LocalContext.current, "Saved", Toast.LENGTH_LONG)
+        OutlinedTextField(value = tempUser.name,
+            onValueChange = { value ->
+                tempUser = tempUser.copy(name = value)
+                mainUser.name = value
+            },
+            label = { Text("Full Name") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(AppTheme.dimens.medium)
+        )
+
+        OutlinedTextField(value = tempUser.title,
+            onValueChange = { value ->
+                tempUser = tempUser.copy(title = value)
+                mainUser.title = value
+            },
+            label = { Text("Title") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(AppTheme.dimens.medium)
+        )
+
+        OutlinedTextField(value = tempUser.aboutMe,
+            onValueChange = { value ->
+                tempUser = tempUser.copy(aboutMe = value)
+                mainUser.aboutMe = value
+            },
+            label = { Text("About Me") },
+            maxLines = 3,
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(AppTheme.dimens.medium),
+            placeholder = {
+                Text(
+                    text = "Add a brief summary about yourself.", modifier = Modifier.alpha(0.35f)
+                )
+            })
+
+        Row(
+            modifier = modifier.fillMaxWidth()
+        ) {
+            OutlinedTextField(
+                value = tempUser.whatsApp,
+                onValueChange = { value ->
+                    tempUser = tempUser.copy(whatsApp = value)
+                    mainUser.whatsApp = value
+                },
+                label = { Text("Phone") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                modifier = Modifier
+                    .padding(AppTheme.dimens.medium)
+                    .fillMaxWidth(0.45f),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Phone, contentDescription = null
+                    )
+                },
+            )
+            OutlinedTextField(value = tempUser.email,
+                onValueChange = { value ->
+                    tempUser = tempUser.copy(email = value)
+                    mainUser.email = value
+                },
+                label = { Text("Email") },
+                singleLine = true,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Email, imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                modifier = Modifier
+                    .padding(AppTheme.dimens.medium)
+                    .fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.Email, contentDescription = null
+                    )
+                })
+        }
+        OutlinedTextField(value = tempUser.linkedIn,
+            onValueChange = { value ->
+                tempUser = tempUser.copy(linkedIn = value)
+                mainUser.linkedIn = value
+            },
+            label = { Text("Professional Profile") },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(AppTheme.dimens.medium),
+            placeholder = {
+                Text(
+                    text = "LinkedIn / ProZ.", modifier = Modifier.alpha(0.35f)
+                )
+            })
+        Row(horizontalArrangement = Arrangement.Center) {
+            Button(modifier = Modifier
+                .padding(AppTheme.dimens.medium)
+                .fillMaxWidth(), onClick = {
+                onSaveButtonClicked(tempUser)
+                savedToast.show()
+            }) {
+                Text(
+                    text = "Save", style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+    }
+}
+

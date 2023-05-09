@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import com.example.translatorsportfolio.ui.managers.AppUiState
 import com.example.translatorsportfolio.R
+import com.example.translatorsportfolio.model.Experience
+import com.example.translatorsportfolio.model.UserInfo
 import java.io.File
 import java.io.FileOutputStream
 
@@ -14,7 +16,12 @@ class PdfController {
 
     //Handles Pdf creation, saving and sharing
 
-    fun generatePDF(context: Context, uiState: AppUiState) {
+    fun generatePDF(
+        context: Context,
+        uiState: AppUiState,
+        mainUser: UserInfo,
+        experiences: List<Experience>
+    ) {
 
         val movies = when (uiState) {
             is AppUiState.Loading -> emptyList()
@@ -27,7 +34,7 @@ class PdfController {
             return
         }
 
-        val document = pdfModel(context, movies)
+        val document = pdfModel(context, movies, mainUser, experiences)
 
         val path = context.getExternalFilesDir(null)
         val filename = "portfolio_${System.currentTimeMillis()}.pdf"

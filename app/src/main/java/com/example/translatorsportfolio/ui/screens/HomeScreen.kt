@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,12 +39,14 @@ fun HomeScreen(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
+        val isDefault = if (mainUser == defaultUser) 0.5f else 1f
 
         Column(verticalArrangement = Arrangement.SpaceBetween) {
             Text(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.dimens.medium),
+                    .padding(AppTheme.dimens.medium)
+                    .alpha(isDefault),
                 text = mainUser.name,
                 style = MaterialTheme.typography.headlineLarge,
                 textAlign = TextAlign.Center
@@ -51,10 +54,12 @@ fun HomeScreen(
             Text(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.dimens.medium),
+                    .padding(AppTheme.dimens.medium)
+                    .alpha(isDefault),
                 text = mainUser.title,
                 style = MaterialTheme.typography.headlineSmall,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+
             )
         }
 
@@ -62,7 +67,8 @@ fun HomeScreen(
             Text(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = AppTheme.dimens.medium),
+                    .padding(start = AppTheme.dimens.medium)
+                    .alpha(isDefault),
                 text = stringResource(R.string.about_me),
                 style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Start
@@ -70,7 +76,8 @@ fun HomeScreen(
             Text(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = AppTheme.dimens.medium, end = AppTheme.dimens.medium),
+                    .padding(start = AppTheme.dimens.medium, end = AppTheme.dimens.medium)
+                    .alpha(isDefault),
                 text = mainUser.aboutMe,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Justify

@@ -39,7 +39,7 @@ interface ExperienceDao {
     @Delete
     suspend fun delete(experience: Experience)
 
-    @Query("SELECT * from user_experience ORDER BY company DESC")
+    @Query("SELECT * from user_experience")
     fun getExp(): Flow<List<Experience>>
 
 }
