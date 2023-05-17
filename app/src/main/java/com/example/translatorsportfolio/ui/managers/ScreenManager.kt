@@ -49,6 +49,7 @@ fun AppBar(
     val context = LocalContext.current
     CenterAlignedTopAppBar(title = { Text(stringResource(currentScreen.title)) },
         modifier = modifier,
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         navigationIcon = {
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {

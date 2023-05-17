@@ -33,7 +33,7 @@ fun pdfModel(
     val leftMargin = 24F
 
     //Background painting
-    val background = ContextCompat.getColor(context, R.color.pdf_background)
+    val background = ContextCompat.getColor(context, R.color.md_theme_light_onSecondary)
     paint.color = background
     canvas.drawColor(paint.color)
 
@@ -47,9 +47,6 @@ fun pdfModel(
 
 
     //Getting info
-
-
-
     val title = mainUser.title
     val name = mainUser.name
     val whatsapp = mainUser.whatsApp

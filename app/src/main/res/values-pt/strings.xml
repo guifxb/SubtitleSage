@@ -4,7 +4,7 @@
     <string name="home_screen_about_me">Guilherme Félix Bastos</string>
     <string name="portfolio_button">Títulos Traduzidos</string>
     <string name="experience_button">Informações pessoais</string>
-    <string name="home_title">Página principal</string>
+    <string name="home_title">" "</string>
     <string name="grid_page">Títulos Traduzidos</string>
     <string name="details_page">Detalhes</string>
     <string name="about_app">Informações pessoais</string>
