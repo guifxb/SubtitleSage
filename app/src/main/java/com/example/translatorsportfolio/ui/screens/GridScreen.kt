@@ -24,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
@@ -32,6 +31,7 @@ import com.example.translatorsportfolio.R
 import com.example.translatorsportfolio.R.drawable
 import com.example.translatorsportfolio.model.MovieInfoLocal
 import com.example.translatorsportfolio.ui.managers.AppUiState
+import com.example.translatorsportfolio.ui.theme.AppTheme
 
 @Composable
 fun GridScreen(
@@ -43,7 +43,7 @@ fun GridScreen(
     onDeleteButtonClicked: (MutableList<MovieInfoLocal>) -> Unit,
 ) {
     when (uiState) {
-        is AppUiState.Loading -> LoadingScreen(modifier)
+        is AppUiState.Loading -> LoadingScreen()
         is AppUiState.Success -> PosterGrid(movies = uiState.movies,
             modifier,
             onDetailsButtonClicked = onDetailsButtonClicked,
@@ -67,9 +67,9 @@ fun PosterCard(
 ) {
     Surface() {
         Box(modifier = Modifier
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(AppTheme.dimens.large))
             .clickable { onDetailsButtonClicked(movie) }
-            .padding(2.dp)
+            .padding(AppTheme.dimens.medium)
         ) {
             AsyncImage(model = ImageRequest.Builder(LocalContext.current)
                 .data(movie.poster)
@@ -78,7 +78,7 @@ fun PosterCard(
                 .crossfade(true).build(),
                 modifier = modifier
                     .clickable { onDetailsButtonClicked(movie) }
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(RoundedCornerShape(AppTheme.dimens.large))
                     .aspectRatio(9f / 16f)
                     .alpha(if (showCheckbox) 0.75f else 1f),
                 contentDescription = movie.title,
@@ -97,8 +97,8 @@ fun PosterCard(
                     },
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                        .padding(16.dp)
-                        .size(30.dp)
+                        .padding(AppTheme.dimens.large)
+                        .size(AppTheme.dimens.large)
                         .graphicsLayer(2f, 2f),
                     colors = CheckboxDefaults.colors(uncheckedColor = Color.Black)
                 )
@@ -126,7 +126,7 @@ fun PosterGrid(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(8.dp),
+        contentPadding = PaddingValues(AppTheme.dimens.small),
     ) {
         itemsIndexed(items = movies) { index, movie ->
             PosterCard(movie = movie,
@@ -145,7 +145,7 @@ fun PosterGrid(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(AppTheme.dimens.large),
         horizontalAlignment = Alignment.End,
         verticalArrangement = Arrangement.Bottom,
     ) {
@@ -161,7 +161,7 @@ fun PosterGrid(
                 tint = Color.White,
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(AppTheme.dimens.large))
 
         //DELETE button
         if (showCheckbox.value) {
@@ -232,7 +232,7 @@ fun PosterGrid(
 }
 
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
+fun LoadingScreen() {
     Text(text = stringResource(R.string.loading_text_loading_screen))
 }
 

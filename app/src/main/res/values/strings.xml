@@ -3,7 +3,6 @@
     <string name="home_screen_about_me">Guilherme Félix Bastos</string>
     <string name="portfolio_button">Translation Portfolio</string>
     <string name="experience_button">Personal Info</string>
-    <string name="home_title">Main Page</string>
     <string name="grid_page">Translated Titles</string>
     <string name="details_page">Title Details</string>
     <string name="about_app">Personal Information</string>
@@ -49,5 +48,6 @@
     <string name="pdf_created_toast">Portfolio created</string>
     <string name="pdf_error_toast">Something wrong</string>
     <string name="pdf_container_title">Translated and QC\'d titles</string>
+    <string name="home_title">" "</string>
 
 </resources>

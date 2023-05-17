@@ -9,9 +9,10 @@ data class Dimensions(
     val medium: Dp,
     val mediumLarge: Dp,
     val large: Dp,
-    val homeScreenPic: Dp,
+    val posterX: Dp,
+    val posterY: Dp,
 
-)
+    )
 
 val smallDimensions = Dimensions(
     small = 2.dp,
@@ -19,7 +20,8 @@ val smallDimensions = Dimensions(
     medium = 6.dp,
     mediumLarge = 9.dp,
     large =  12.dp,
-    homeScreenPic = 140.dp,
+    posterX = 140.dp,
+    posterY = 240.dp
 )
 
 val compactDimensions = Dimensions(
@@ -28,7 +30,8 @@ val compactDimensions = Dimensions(
     medium = 8.dp,
     mediumLarge = 11.dp,
     large =  15.dp,
-    homeScreenPic = 160.dp,
+    posterX = 160.dp,
+    posterY = 276.dp
 )
 
 val mediumDimensions = Dimensions(
@@ -37,7 +40,9 @@ val mediumDimensions = Dimensions(
     medium = 10.dp,
     mediumLarge = 13.dp,
     large =  18.dp,
-    homeScreenPic = 180.dp,
+    posterX = 200.dp,
+    posterY = 334.dp
+
 )
 
 val largeDimensions = Dimensions(
@@ -46,5 +51,6 @@ val largeDimensions = Dimensions(
     medium = 15.dp,
     mediumLarge = 20.dp,
     large = 24.dp,
-    homeScreenPic = 210.dp,
+    posterX = 240.dp,
+    posterY = 412.dp
 )

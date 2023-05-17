@@ -1,7 +1,13 @@
 package com.example.translatorsportfolio.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,22 +19,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.translatorsportfolio.R
 import com.example.translatorsportfolio.model.MovieInfoLocal
+import com.example.translatorsportfolio.ui.theme.AppTheme
 
 @Composable
 fun DetailScreen(
     movieInfoLocal: MovieInfoLocal,
-    modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState())
+    ) {
         PosterAndInfo(movieInfoLocal = movieInfoLocal)
         PlotAndLink(movieInfoLocal = movieInfoLocal)
     }
@@ -37,7 +43,6 @@ fun DetailScreen(
 @Composable
 private fun PosterAndInfo(
     movieInfoLocal: MovieInfoLocal,
-    modifier: Modifier = Modifier,
 ) {
     Row {
         AsyncImage(model = ImageRequest.Builder(context = LocalContext.current)
@@ -47,8 +52,8 @@ private fun PosterAndInfo(
             error = painterResource(id = R.drawable.ic_broken_image),
             placeholder = painterResource(id = R.drawable.loading_img),
             modifier = Modifier
-                .size(200.dp, 334.dp)
-                .padding(8.dp))
+                .size(AppTheme.dimens.posterX, AppTheme.dimens.posterY)
+                .padding(AppTheme.dimens.medium))
         InfoCard(movieInfoLocal = movieInfoLocal)
     }
 }
@@ -58,13 +63,13 @@ private fun InfoCard(
     modifier: Modifier = Modifier,
     movieInfoLocal: MovieInfoLocal,
 ) {
-    Column(Modifier.padding(top = 16.dp), horizontalAlignment = Alignment.Start) {
+    Column(Modifier.padding(top = AppTheme.dimens.large), horizontalAlignment = Alignment.Start) {
         Text(text = movieInfoLocal.title,
-            modifier = modifier.padding(top = 16.dp, start = 8.dp),
-            style = MaterialTheme.typography.headlineMedium)
+            modifier = modifier.padding(top = AppTheme.dimens.large, start = AppTheme.dimens.medium),
+            style = MaterialTheme.typography.headlineLarge)
         Text(text = "(${movieInfoLocal.year})",
-            modifier = modifier.padding(top = 16.dp, start = 8.dp),
-            style = MaterialTheme.typography.headlineSmall)
+            modifier = modifier.padding(top = AppTheme.dimens.large, start = AppTheme.dimens.medium),
+            style = MaterialTheme.typography.headlineMedium)
 
     }
 }
@@ -74,13 +79,13 @@ fun PlotAndLink(
     movieInfoLocal: MovieInfoLocal,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.padding(8.dp)) {
+    Column(modifier = modifier.padding(AppTheme.dimens.medium)) {
         Text(
             text = movieInfoLocal.plot,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Justify,
         )
-        Spacer(modifier = Modifier.size(32.dp))
+        Spacer(modifier = Modifier.size(AppTheme.dimens.large * 2))
         AnnotatedClickableText(movieInfoLocal = movieInfoLocal)
     }
 }
@@ -88,14 +93,15 @@ fun PlotAndLink(
 @Composable
 fun AnnotatedClickableText(
     movieInfoLocal: MovieInfoLocal,
-    modifier: Modifier = Modifier,
 ) {
     val movieUrl = "https://www.imdb.com/title/${movieInfoLocal.imdbid}/"
     val mUriHandler = LocalUriHandler.current
+    val style = MaterialTheme.typography.bodyMedium.toSpanStyle()
     val annotatedText = buildAnnotatedString {
-
-        append("See on ")
-        withStyle(style = SpanStyle(color = Color.Blue)) {
+        withStyle(style) {
+            append("See on ")
+        }
+        withStyle(style.copy(color = Color.Blue)) {
             appendLink("IMdb", movieUrl)
         }
     }

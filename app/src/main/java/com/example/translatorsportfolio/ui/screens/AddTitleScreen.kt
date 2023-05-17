@@ -1,32 +1,42 @@
 package com.example.translatorsportfolio.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.translatorsportfolio.R
 import com.example.translatorsportfolio.model.BrokenTitle
 import com.example.translatorsportfolio.model.DefaultTitleToAdd
 import com.example.translatorsportfolio.model.MovieInfoNet
+import com.example.translatorsportfolio.ui.theme.AppTheme
 
 
 @Composable
@@ -35,33 +45,40 @@ fun AddTitleScreen(
     modifier: Modifier = Modifier,
     onSearchButtonClicked: (String) -> Unit,
     onAddButtonClicked: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Top
     ) {
-    Column(modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Top) {
         PosterAndInfo(movieInfoLocal = addTitleCurrentMovie)
         Plot(movieInfoLocal = addTitleCurrentMovie)
         Spacer(modifier.weight(1f, true))
-        SaveButtons(movieInfoLocal = addTitleCurrentMovie,
+        SaveButtons(
+            movieInfoLocal = addTitleCurrentMovie,
             onSearchButtonClicked = onSearchButtonClicked,
-            onAddButtonClicked = onAddButtonClicked)
+            onAddButtonClicked = onAddButtonClicked
+        )
     }
 }
 
 @Composable
 private fun PosterAndInfo(
     movieInfoLocal: MovieInfoNet,
-    modifier: Modifier = Modifier,
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        AsyncImage(model = ImageRequest.Builder(context = LocalContext.current)
-            .data(movieInfoLocal.poster).crossfade(true).build(),
+        AsyncImage(
+            model = ImageRequest.Builder(context = LocalContext.current).data(movieInfoLocal.poster)
+                .crossfade(true).build(),
             contentDescription = movieInfoLocal.title,
             contentScale = ContentScale.FillBounds,
             error = painterResource(id = R.drawable.ic_broken_image),
             placeholder = painterResource(id = R.drawable.loading_img),
             modifier = Modifier
-                .size(200.dp, 334.dp)
-                .padding(8.dp))
+                .size(AppTheme.dimens.posterX, AppTheme.dimens.posterY)
+                .padding(AppTheme.dimens.medium)
+        )
         InfoCard(movieInfoLocal = movieInfoLocal)
     }
 }
@@ -71,15 +88,21 @@ private fun InfoCard(
     modifier: Modifier = Modifier,
     movieInfoLocal: MovieInfoNet,
 ) {
-    Column(Modifier
-        .fillMaxWidth()
-        .padding(top = 16.dp), horizontalAlignment = Alignment.Start) {
-        Text(text = movieInfoLocal.title,
-            modifier = modifier.padding(top = 16.dp, start = 8.dp),
-            style = MaterialTheme.typography.headlineMedium)
-        Text(text = "(${movieInfoLocal.year})",
-            modifier = modifier.padding(top = 16.dp, start = 8.dp),
-            style = MaterialTheme.typography.headlineSmall)
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(top = AppTheme.dimens.large), horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = movieInfoLocal.title,
+            modifier = modifier.padding(top = AppTheme.dimens.large, start = AppTheme.dimens.medium),
+            style = MaterialTheme.typography.headlineLarge
+        )
+        Text(
+            text = "(${movieInfoLocal.year})",
+            modifier = modifier.padding(top = AppTheme.dimens.large, start = AppTheme.dimens.medium),
+            style = MaterialTheme.typography.headlineMedium
+        )
     }
 }
 
@@ -88,13 +111,13 @@ fun Plot(
     movieInfoLocal: MovieInfoNet,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.padding(8.dp)) {
+    Column(modifier = modifier.padding(AppTheme.dimens.large)) {
         Text(
             text = movieInfoLocal.plot,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Justify,
         )
-        Spacer(modifier = Modifier.size(32.dp))
+        Spacer(modifier = Modifier.size(AppTheme.dimens.large))
     }
 }
 
@@ -106,34 +129,49 @@ fun SaveButtons(
     onSearchButtonClicked: (String) -> Unit,
     onAddButtonClicked: () -> Unit,
 ) {
-    val savedToast = Toast.makeText(LocalContext.current, stringResource(R.string.title_save_toast), Toast.LENGTH_LONG)
-    val errorToast = Toast.makeText(LocalContext.current, stringResource(R.string.title_not_found_toast), Toast.LENGTH_LONG)
+    val savedToast = Toast.makeText(
+        LocalContext.current, stringResource(R.string.title_save_toast), Toast.LENGTH_LONG
+    )
+    val errorToast = Toast.makeText(
+        LocalContext.current, stringResource(R.string.title_not_found_toast), Toast.LENGTH_LONG
+    )
     var openDialogAdd by remember { mutableStateOf(false) }
     var textField by remember { mutableStateOf("") }
     var saveButtonBool by remember { mutableStateOf(false) }
+    var showHelp by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
-    Column(modifier
-        .padding(16.dp)
-        .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    )
-    {
-        OutlinedTextField(
-            value = textField,
+    Column(
+        modifier
+            .padding(AppTheme.dimens.large)
+            .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        OutlinedTextField(value = textField,
             onValueChange = { textField = it },
             label = { Text("IMDB id") },
-            placeholder = { Text(text = stringResource(R.string.example_placeholder), modifier = Modifier.alpha(0.35f)) },
+            placeholder = {
+                Text(
+                    text = stringResource(R.string.example_placeholder),
+                    modifier = Modifier.alpha(0.35f)
+                )
+            },
             singleLine = true,
             leadingIcon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-        )
-
-        Row(modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            supportingText = {
+                Text(
+                    text = "Where to find this?",
+                    modifier = Modifier
+                        .alpha(0.35f)
+                        .clickable { showHelp = !showHelp },
+                    style = MaterialTheme.typography.bodyMedium.copy(textDecoration = TextDecoration.Underline)
+                )
+            })
+        Row(
+            modifier
+                .padding(AppTheme.dimens.large)
+                .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(onClick = {
                 onSearchButtonClicked(textField)
@@ -149,39 +187,88 @@ fun SaveButtons(
     }
 
     saveButtonBool = movieInfoLocal != DefaultTitleToAdd && movieInfoLocal != BrokenTitle
+    if (showHelp) {
+        Dialog(onDismissRequest = { showHelp = !showHelp }) {
+            ShowHelp(onOkClicked = { showHelp = !showHelp })
+        }
+    }
+
 
     if (openDialogAdd) {
-        AlertDialog(
-            onDismissRequest = {
+        AlertDialog(onDismissRequest = {
+            openDialogAdd = false
+        }, title = {
+            Text(text = stringResource(id = R.string.add_title_alert_title))
+        }, text = {
+            Text(text = stringResource(R.string.add_title_alert_text) + movieInfoLocal.title + "?")
+        }, confirmButton = {
+            TextButton(onClick = {
+                onAddButtonClicked()
                 openDialogAdd = false
-            },
-            title = {
-                Text(text = stringResource(id = R.string.add_title_alert_title))
-            },
-            text = {
-                Text(text = stringResource(R.string.add_title_alert_text) + movieInfoLocal.title + "?")
-            },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onAddButtonClicked()
-                        openDialogAdd = false
-                        savedToast.show()
-                        textField = ""
-                    }
-                ) {
-                    Text(stringResource(id = R.string.just_yes))
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        openDialogAdd = false
-                    }
-                ) {
-                    Text(stringResource(id = R.string.just_no))
-                }
+                savedToast.show()
+                textField = ""
+            }) {
+                Text(stringResource(id = R.string.just_yes))
             }
-        )
+        }, dismissButton = {
+            TextButton(onClick = {
+                openDialogAdd = false
+            }) {
+                Text(stringResource(id = R.string.just_no))
+            }
+        })
     }
 }
+
+@Composable
+fun ShowHelp(onOkClicked: () -> Unit) {
+    Card() {
+        Column(
+            modifier = Modifier.padding(AppTheme.dimens.smallMedium),
+            verticalArrangement = Arrangement.SpaceEvenly) {
+            Spacer(modifier = Modifier.size(AppTheme.dimens.large + 20.dp))
+            ClickableText()
+            Spacer(modifier = Modifier.size(AppTheme.dimens.medium))
+            Text(text = "2 - Get the IMdb id by copying it like in the image.",
+            style = MaterialTheme.typography.bodyLarge.copy(color = Color.Black))
+            Spacer(modifier = Modifier.size(AppTheme.dimens.medium))
+            Image(painter = painterResource(id = R.drawable.image_add_example),
+                modifier = Modifier.size(AppTheme.dimens.posterY + 50.dp, AppTheme.dimens.posterX - 50.dp),
+                contentScale = ContentScale.FillBounds,
+                contentDescription = null)
+            Spacer(modifier = Modifier.size(AppTheme.dimens.medium))
+            Text(text = "3 - Paste in the search box and confirm.",
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.Black))
+            Spacer(modifier = Modifier.size(AppTheme.dimens.large + 20.dp))
+            Row(horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()){
+                Button(onClick = onOkClicked) {
+                    Text(text = "Done")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ClickableText(
+) {
+    val style = MaterialTheme.typography.bodyLarge.toSpanStyle()
+    val url = "https://www.imdb.com/"
+    val mUriHandler = LocalUriHandler.current
+    val annotatedText = buildAnnotatedString {
+        withStyle(style) {
+            append("1 - Search the title on IMdb. ")
+        }
+        withStyle(style.copy(color = Color.Blue)) {
+            appendLink("Click Here.", url)
+        }
+    }
+    ClickableText(text = annotatedText, onClick = {
+        annotatedText.getStringAnnotations(url, it, it).firstOrNull()?.let { stringAnnotation ->
+            mUriHandler.openUri(stringAnnotation.item)
+        }
+    })
+}
+
+
