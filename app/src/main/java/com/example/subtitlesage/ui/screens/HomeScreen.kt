@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.subtitlesage.R
 import com.example.subtitlesage.model.UserInfo
@@ -50,7 +51,6 @@ enum class ContactType {
     WhatsApp, LinkedIn, Email
 }
 
-// SubtitleSage: A logo featuring an owl and text to represent the wisdom and knowledge of subtitle translators.
 
 @Composable
 fun HomeScreen(
@@ -70,7 +70,7 @@ fun HomeScreen(
             )
 
     ) {
-        val isDefault = if (mainUser == defaultUser) 0.5f else 1f
+        val isDefault = mainUser == defaultUser
 
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer, contentColor = MaterialTheme.colorScheme.onSecondaryContainer),
         modifier = Modifier.padding(AppTheme.dimens.medium),
@@ -81,16 +81,16 @@ fun HomeScreen(
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(AppTheme.dimens.medium)
-                            .alpha(isDefault),
-                        text = mainUser.name,
+                            .alpha(if (isDefault) 0.5f else 1f),
+                        text = if (isDefault) stringResource(R.string.default_name) else mainUser.name,
                         style = MaterialTheme.typography.headlineMedium,
                     )
                     Text(
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(AppTheme.dimens.medium)
-                            .alpha(isDefault),
-                        text = mainUser.title,
+                            .alpha(if (isDefault) 0.5f else 1f),
+                        text = if (isDefault) stringResource(R.string.professional_title) else mainUser.title,
                         style = MaterialTheme.typography.headlineSmall,
                     )
                 }
@@ -100,7 +100,7 @@ fun HomeScreen(
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(start = AppTheme.dimens.medium)
-                            .alpha(isDefault),
+                            .alpha(if (isDefault) 0.5f else 1f),
                         text = stringResource(R.string.about_me),
                         style = MaterialTheme.typography.headlineSmall,
                     )
@@ -108,8 +108,8 @@ fun HomeScreen(
                         modifier = modifier
                             .fillMaxWidth()
                             .padding(start = AppTheme.dimens.medium, end = AppTheme.dimens.medium)
-                            .alpha(isDefault),
-                        text = mainUser.aboutMe,
+                            .alpha(if (isDefault) 0.5f else 1f),
+                        text = if (isDefault) stringResource(R.string.short_summary) else mainUser.aboutMe,
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Justify                        
                     )
@@ -152,7 +152,8 @@ fun HomeScreen(
                 Text(
                     text = stringResource(R.string.experience_button),
                     style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Justify
+                    textAlign = TextAlign.Center,
+                    overflow = TextOverflow.Visible
                 )
             }
         }
