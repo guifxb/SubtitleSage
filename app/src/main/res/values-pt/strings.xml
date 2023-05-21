@@ -55,4 +55,6 @@
     <string name="phone">Telefone</string>
     <string name="email">Email</string>
     <string name="professional_profile">Página pessoal</string>
+    <string name="broken_title_plot">Parece que ocorreu algum erro ao procurar este título. Talvez ele não exista, você está offline ou os servidores caíram. É mesmo um mistério.</string>
+    <string name="broken_title">TÍTULO NÃO ENCONTRADO</string>
 </resources>

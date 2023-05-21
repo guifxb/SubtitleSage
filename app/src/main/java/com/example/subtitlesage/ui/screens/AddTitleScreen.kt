@@ -94,7 +94,7 @@ private fun InfoCard(
             .padding(top = AppTheme.dimens.large), horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = movieInfoLocal.title,
+            text = if (movieInfoLocal == BrokenTitle) stringResource(R.string.broken_title) else movieInfoLocal.title,
             modifier = modifier.padding(top = AppTheme.dimens.large, start = AppTheme.dimens.medium),
             style = MaterialTheme.typography.headlineLarge
         )
@@ -113,7 +113,7 @@ fun Plot(
 ) {
     Column(modifier = modifier.padding(AppTheme.dimens.large)) {
         Text(
-            text = movieInfoLocal.plot,
+            text = if (movieInfoLocal == BrokenTitle) stringResource(R.string.broken_title_plot) else movieInfoLocal.plot,
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Justify,
         )
@@ -187,6 +187,7 @@ fun SaveButtons(
     }
 
     saveButtonBool = movieInfoLocal != DefaultTitleToAdd && movieInfoLocal != BrokenTitle
+
     if (showHelp) {
         Dialog(onDismissRequest = { showHelp = !showHelp }) {
             ShowHelp(onOkClicked = { showHelp = !showHelp })

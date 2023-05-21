@@ -57,7 +57,7 @@ class OnlineViewModel(
     fun getTitleToAdd(idToAdd: String) {
         val regex = Regex("""tt(\d+)""")
         val matchResult = regex.find(idToAdd)
-        val extractedValue = matchResult?.value //check here
+        val extractedValue = matchResult?.value
         viewModelScope.launch {
             val titleToAdd = try {
                 movieRepository.getTitleToAdd(extractedValue ?: "" )
@@ -67,7 +67,7 @@ class OnlineViewModel(
                 BrokenTitle
             }
             catch (e: Exception) {
-                DefaultTitleToAdd
+                BrokenTitle
             }
             _addTitleCurrentMovie.update {
                 titleToAdd
