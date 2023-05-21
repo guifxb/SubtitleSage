@@ -7,20 +7,20 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-        android:name=".AppApplication"
+        android:name="com.example.subtitlesage.AppApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GuisPortfolio"
+        android:theme="@style/Theme.App.Starting"
         tools:targetApi="33"
         >
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.translatorsportfolio.fileprovider"
+            android:authorities="com.example.subtitlesage.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
@@ -28,9 +28,9 @@
                 android:resource="@xml/filepaths" />
         </provider>
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.subtitlesage.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.GuisPortfolio">
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
