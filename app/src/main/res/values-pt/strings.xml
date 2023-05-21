@@ -42,7 +42,7 @@
     <string name="click_here">Clique aqui.</string>
     <string name="see_on">Veja em</string>
     <string name="personal_information">Informações pessoais</string>
-    <string name="professional_experience">Experiências profisisonais</string>
+    <string name="professional_experience">Experiências profissionais</string>
     <string name="company_name">Empresa</string>
     <string name="translation_pair_s">Par(es) de tradução</string>
     <string name="professional_role">Função</string>
@@ -57,4 +57,7 @@
     <string name="professional_profile">Página pessoal</string>
     <string name="broken_title_plot">Parece que ocorreu algum erro ao procurar este título. Talvez ele não exista, você está offline ou os servidores caíram. É mesmo um mistério.</string>
     <string name="broken_title">TÍTULO NÃO ENCONTRADO</string>
+    <string name="default_name">Seu nome</string>
+    <string name="professional_title">Cargo</string>
+    <string name="short_summary">Resumo</string>
 </resources>

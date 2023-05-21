@@ -56,5 +56,8 @@
     <string name="professional_profile">Professional Profile</string>
     <string name="broken_title_plot">It seems that there was a error finding this title. It may be wrong, you may be offline or maybe there\'s something up with the servers. It\'s truly a mystery.</string>
     <string name="broken_title">TITLE NOT FOUND</string>
+    <string name="default_name">Your name</string>
+    <string name="professional_title">Professional Title</string>
+    <string name="short_summary">Short summary</string>
 
 </resources>
