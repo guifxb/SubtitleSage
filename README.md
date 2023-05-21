@@ -17,9 +17,9 @@ As a junior developer, I'm aware that there is always room for improvement, and 
 
 ## UI Design including Dark Mode
 
-Day Mode | Dark Mode |
---- | --- |
-![Screenshot_20230122-124435561](https://user-images.githubusercontent.com/107308140/213932544-1a3cc2dc-709e-4a17-97e8-898fb2cdb64d.jpg) | ![Screenshot_20230122-124535627](https://user-images.githubusercontent.com/107308140/213932552-10486571-1a7a-4735-bb9d-664983e4fc65.jpg) |
+| Day Mode                                                                                                                                 | Dark Mode                                                                                                                                |
+|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Screenshot_20230122-124435561](https://user-images.githubusercontent.com/107308140/213932544-1a3cc2dc-709e-4a17-97e8-898fb2cdb64d.jpg) | ![Screenshot_20230122-124535627](https://user-images.githubusercontent.com/107308140/213932552-10486571-1a7a-4735-bb9d-664983e4fc65.jpg) |
  
  
 
