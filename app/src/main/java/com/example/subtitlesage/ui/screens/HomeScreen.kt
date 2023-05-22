@@ -99,8 +99,7 @@ fun HomeScreen(
                     Text(
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(start = AppTheme.dimens.medium)
-                            .alpha(if (isDefault) 0.5f else 1f),
+                            .padding(start = AppTheme.dimens.medium),
                         text = stringResource(R.string.about_me),
                         style = MaterialTheme.typography.headlineSmall,
                     )
@@ -140,7 +139,7 @@ fun HomeScreen(
                 Text(
                     stringResource(R.string.portfolio_button),
                     style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Justify
+                    textAlign = TextAlign.Center
                 )
             }
             Button(
