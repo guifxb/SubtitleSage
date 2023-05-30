@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-        android:name="com.example.subtitlesage.AppApplication"
+        android:name="com.gfbdev.subtitlesage.AppApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,7 @@
         >
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.subtitlesage.fileprovider"
+            android:authorities="com.gfbdev.subtitlesage.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
@@ -28,7 +28,7 @@
                 android:resource="@xml/filepaths" />
         </provider>
         <activity
-            android:name="com.example.subtitlesage.MainActivity"
+            android:name="com.gfbdev.subtitlesage.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
