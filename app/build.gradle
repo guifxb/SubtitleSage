@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.subtitlesage'
+    namespace 'com.gfbdev.subtitlesage'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.subtitlesage"
+        applicationId 'com.gfbdev.subtitlesage'
         minSdk 21
         targetSdk 33
         versionCode 1
