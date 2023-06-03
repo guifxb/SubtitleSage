@@ -1,4 +1,5 @@
-![github1](https://github.com/guifxb/SubtitleSage/assets/107308140/8f20c889-bd75-4688-b386-718e0554b21c)
+![github1](https://github.com/guifxb/SubtitleSage/assets/107308140/e4d7f491-560e-4c55-9e64-c7bbe008c9b3)
+
 
 # SubtitleSage
 
