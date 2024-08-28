@@ -5,15 +5,14 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
-import com.gfbdev.subtitlesage.ui.managers.AppUiState
+import com.gfbdev.subtitlesage.R
 import com.gfbdev.subtitlesage.model.Experience
 import com.gfbdev.subtitlesage.model.UserInfo
-import com.gfbdev.subtitlesage.R
+import com.gfbdev.subtitlesage.ui.managers.AppUiState
 import java.io.File
 import java.io.FileOutputStream
 
 class PdfController {
-
     //Handles Pdf creation, saving and sharing
 
     fun generatePDF(

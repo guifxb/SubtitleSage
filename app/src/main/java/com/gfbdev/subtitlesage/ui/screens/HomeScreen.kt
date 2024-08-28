@@ -51,16 +51,13 @@ enum class ContactType {
     WhatsApp, LinkedIn, Email
 }
 
-
 @Composable
 fun HomeScreen(
     onPortfolioButtonClicked: () -> Unit,
     onAboutButtonClicked: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     mainUser: UserInfo,
-
 ) {
-
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
@@ -119,9 +116,7 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.End ) {
                         IconButton(onClick = { onAboutButtonClicked(true) }) {
                             Icon(imageVector = Icons.Outlined.Edit, contentDescription = null)
-
                         }
-
                     }
                 }
             }
@@ -158,7 +153,6 @@ fun HomeScreen(
         }
     }
 }
-
 
 @Composable
 fun ContactInfo(

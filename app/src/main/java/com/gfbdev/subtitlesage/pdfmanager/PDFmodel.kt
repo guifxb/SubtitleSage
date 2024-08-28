@@ -136,40 +136,34 @@ fun pdfModel(
         x = baseX
     }
 
-    // Poster painter
     movies.forEach { movie ->
-        //loads poster from cache and build into a Bitmap, might wanna add a null check and a broken image
         val result = imageLoader.diskCache?.get(movie.poster)?.data
-        val drawable = result?.let { path ->
-            val bitmap = BitmapFactory.decodeFile(path.toString())
-            val resizedBitmap = Bitmap.createScaledBitmap(bitmap, imageX, imageY, true)
-            BitmapDrawable(context.resources, resizedBitmap)
-        }?.bitmap
+        val bitmap = result?.let { path ->
+            BitmapFactory.decodeFile(path.toString())
+        }
+        bitmap?.let {
+            val resizedBitmap = Bitmap.createScaledBitmap(it, imageX, imageY, true)
+            canvas.drawBitmap(resizedBitmap, x, y, paint)
+            val tempY = y
 
-        //Painting poster, title and year
-        canvas.drawBitmap(drawable!!, x, y, paint)
-        val tempY = y
-        paint.textSize = 10f
-        y += imageY + 2f + paint.textSize
-        x += imageX / 2
-        canvas.drawText(movie.title, x, y, paint)
-        paint.textSize = 8f
-        y += paint.textSize + 4f
-        canvas.drawText("(${movie.year})", x, y, paint)
+            paint.textSize = 10f
+            y += imageY + 2f + paint.textSize
+            x += imageX / 2
+            canvas.drawText(movie.title, x, y, paint)
+            paint.textSize = 8f
+            y += paint.textSize + 4f
+            canvas.drawText("(${movie.year})", x, y, paint)
 
-        //Setting position for next
-        x += imageX / 2 + spacing
-        y = tempY
-
-        //Checks for space available in row and skips row if needed
-        if (x + imageX + spacing > canvas.width) {
-            x = baseX
-            y += imageY + spacing + 16f
-            row++
-            //Checks and creates new page is needed
-            if (row > 5) {
-                newPage()
-                row = 1
+            x += imageX / 2 + spacing
+            y = tempY
+            if (x + imageX + spacing > canvas.width) {
+                x = baseX
+                y += imageY + spacing + 16f
+                row++
+                if (row > 5) {
+                    newPage()
+                    row = 1
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ import com.gfbdev.subtitlesage.R
 import com.gfbdev.subtitlesage.model.MovieInfoLocal
 import com.gfbdev.subtitlesage.ui.theme.AppTheme
 
+
 @Composable
 fun DetailScreen(
     movieInfoLocal: MovieInfoLocal,

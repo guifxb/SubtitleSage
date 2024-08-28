@@ -114,7 +114,6 @@ fun PersonalInfoScreen(
         LazyColumn(
             modifier = modifier
         ) {
-
             items(experiences, key = { it.company }) { experience ->
                 ExperienceBlock(experience,
                     mustHaveNext = experiences.last() == experience,
@@ -124,7 +123,6 @@ fun PersonalInfoScreen(
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -154,7 +152,6 @@ fun ExperienceBlock(
                 .fillMaxWidth()
                 .padding(AppTheme.dimens.medium)
         )
-
         Row {
             OutlinedTextField(enabled = mustHaveNext,
                 value = localExperience.pair,
@@ -170,7 +167,6 @@ fun ExperienceBlock(
                     .fillMaxWidth(0.45f)
                     .padding(AppTheme.dimens.medium)
             )
-
             OutlinedTextField(enabled = mustHaveNext,
                 value = localExperience.role,
                 onValueChange = { value ->
@@ -190,7 +186,6 @@ fun ExperienceBlock(
                     )
                 })
         }
-
         OutlinedTextField(enabled = mustHaveNext,
             value = localExperience.time,
             onValueChange = { value ->
@@ -212,13 +207,11 @@ fun ExperienceBlock(
                     modifier = Modifier.alpha(0.35f)
                 )
             })
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(AppTheme.dimens.medium)
         ) {
-
             if (mustHaveNext) {
                 Spacer(modifier = Modifier.fillMaxWidth(0.8f))
                 FloatingActionButton(onClick = {
@@ -234,7 +227,6 @@ fun ExperienceBlock(
                 }, content = {
                     Icon(imageVector = Icons.Outlined.DeleteForever, contentDescription = null)
                 })
-
             }
         }
         Divider(modifier = Modifier.padding(AppTheme.dimens.large))
@@ -281,7 +273,6 @@ fun UserTab(
                 .fillMaxWidth()
                 .padding(AppTheme.dimens.medium)
         )
-
         OutlinedTextField(value = tempUser.title,
             onValueChange = { value ->
                 tempUser = tempUser.copy(title = value)
@@ -295,7 +286,6 @@ fun UserTab(
                 .fillMaxWidth()
                 .padding(AppTheme.dimens.medium)
         )
-
         OutlinedTextField(value = tempUser.aboutMe,
             onValueChange = { value ->
                 tempUser = tempUser.copy(aboutMe = value)
@@ -313,7 +303,6 @@ fun UserTab(
                     text = stringResource(R.string.about_me_placeholder), modifier = Modifier.alpha(0.35f)
                 )
             })
-
         Row(
             modifier = modifier.fillMaxWidth()
         ) {

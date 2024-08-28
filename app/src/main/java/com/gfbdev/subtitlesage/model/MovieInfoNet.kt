@@ -1,14 +1,8 @@
 package com.gfbdev.subtitlesage.model
 
-
-
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
-
-// Data class to define how to parse info from API
 @Serializable
 data class MovieInfoNet(
     @SerialName(value = "Title")
@@ -27,8 +21,6 @@ val DefaultTitleToAdd: MovieInfoNet = MovieInfoNet("Title", "Year", "Title plot 
 
 val BrokenTitle: MovieInfoNet = MovieInfoNet("NOT FOUND", "?", "It seems that there was a error finding this title. It may be wrong, you may be offline or maybe there's something up with the servers. It's truly a mystery.", "?", "")
 
-
-//Bridging API and local classes
 fun MovieInfoNet.toMovieInfoLocal(): MovieInfoLocal = MovieInfoLocal(
     title = title,
     year = year,

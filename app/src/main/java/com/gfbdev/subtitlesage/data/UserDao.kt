@@ -24,12 +24,10 @@ interface UserDao {
 
     @Query("SELECT * from user")
     fun getUser(): Flow<UserInfo?>
-
 }
 
 @Dao
 interface ExperienceDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(experience: Experience)
 
@@ -41,5 +39,4 @@ interface ExperienceDao {
 
     @Query("SELECT * from user_experience")
     fun getExp(): Flow<List<Experience>>
-
 }

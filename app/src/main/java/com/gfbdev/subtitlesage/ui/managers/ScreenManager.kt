@@ -110,6 +110,7 @@ fun PortfolioApp(
                 .padding(it)
         ) {
             NavHost(navController = navController, startDestination = AppScreen.Start.name) {
+
                 composable(route = AppScreen.Start.name) {
                     val state = userViewModel.mainUser.collectAsState()
                     HomeScreen(onAboutButtonClicked = {

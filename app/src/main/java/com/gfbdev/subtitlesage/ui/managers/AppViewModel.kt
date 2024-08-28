@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
-
 interface AppUiState {
     data class Success(val movies: List<MovieInfoLocal>) : AppUiState
     object Error : AppUiState
@@ -39,14 +38,11 @@ class OnlineViewModel(
         getMovieInfo()
     }
 
-    //Current Movie val used to build details screen from grid click
     private val _currentMovie = MutableStateFlow(DefaultMovie)
     val currentMovie: StateFlow<MovieInfoLocal> = _currentMovie.asStateFlow()
 
-    //Add Title val used to build AddTitle screen from search and add it to database
     private val _addTitleCurrentMovie = MutableStateFlow(DefaultTitleToAdd)
     val addTitleCurrentMovie: StateFlow<MovieInfoNet> = _addTitleCurrentMovie.asStateFlow()
-
 
     fun updateCurrentMovie(movieInfoLocal: MovieInfoLocal) {
         _currentMovie.update {

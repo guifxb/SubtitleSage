@@ -35,19 +35,16 @@ class UserViewModel(
         getExp()
     }
 
-
     private val _mainUser = MutableStateFlow(defaultUser)
     val mainUser: StateFlow<UserInfo> = _mainUser.asStateFlow()
 
-    var blankExp = defaultExp.copy()
+    private var blankExp = defaultExp.copy()
 
     private var _mainExp = MutableStateFlow(listOf(blankExp))
     var mainExp: StateFlow<List<Experience>> = _mainExp.asStateFlow()
 
     private var _personalInfoBool = MutableStateFlow(false)
     var personalInfoBool = _personalInfoBool.asStateFlow()
-
-
 
     fun updateInfoBool(infoBool: Boolean) {
         _personalInfoBool.update {
@@ -84,6 +81,8 @@ class UserViewModel(
             userRepository.insertItem(user)
             _mainUser.update { user }
         }
+        getInfo()
+        getExp()
     }
 
     fun addExp(experience: Experience) {
@@ -114,6 +113,4 @@ class UserViewModel(
             }
         }
     }
-
-
 }

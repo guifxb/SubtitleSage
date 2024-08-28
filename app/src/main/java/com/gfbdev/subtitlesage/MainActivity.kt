@@ -17,9 +17,6 @@ import com.gfbdev.subtitlesage.ui.theme.rememberWindowsSizeClass
 
 class MainActivity : ComponentActivity() {
 
-    /**
-     * Checking and asking permission to Write and Read files
-     **/
     private fun checkPermission(): Boolean {
         val permission1 = ContextCompat.checkSelfPermission(this,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
