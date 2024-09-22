@@ -10,7 +10,7 @@ Showcase your skills and work history effortlessly.
 ## Key features 📱📱
 
 - #### Portfolio Generation: Compile your professional info and completed projects. 
-- #### PDF Format: Generate high-quality portfolios for easy sharing and compatibility.Q=
+- #### PDF Format: Generate high-quality portfolios for easy sharing and compatibility.
 - #### Effortless Sharing: Share portfolios via email and social media.
 - #### Enhance Professionalism: Impress clients with a polished showcase of your work.
 - #### User-friendly Interface: Easily navigate and customize your portfolio.
